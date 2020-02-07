@@ -1,4 +1,4 @@
-package example
+package problem1
 
 case class BestGroupPrice(
     cabinCode: String,

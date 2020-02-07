@@ -1,8 +1,8 @@
-package example
+package problem1
 
 import org.scalatest._
 
-class Problem1Test extends FlatSpec with Matchers {
+class P1Test extends FlatSpec with Matchers {
 
   "Finding the lowest price in a group of cabin prices" should "return the cabin price object that has the lowest " +
     "price" in {
@@ -13,7 +13,7 @@ class Problem1Test extends FlatSpec with Matchers {
       CabinPriceWithRateGroup(CabinPrice("C3", "S5", 100), "Senior")
     )
 
-    Problem1.havingLowestCabinPrice(cabinPrices) should contain(
+    P1Main.havingLowestCabinPrice(cabinPrices) should contain(
       CabinPriceWithRateGroup(CabinPrice("C21", "M8", 99.998), "Military"))
   }
 
@@ -32,7 +32,7 @@ class Problem1Test extends FlatSpec with Matchers {
       CabinPrice("CB", "S2", 270.00)
     )
 
-    Problem1.getBestGroupPrices(rates, cabinPrices) should contain theSameElementsAs(
+    P1Main.getBestGroupPrices(rates, cabinPrices) should contain theSameElementsAs(
       Seq(
         BestGroupPrice("CA", "M1", 200.00, "Military"),
         BestGroupPrice("CA", "S1", 225.00, "Senior"),
@@ -40,7 +40,5 @@ class Problem1Test extends FlatSpec with Matchers {
         BestGroupPrice("CB", "S1", 245.00, "Senior")
       )
     )
-
-
   }
 }
