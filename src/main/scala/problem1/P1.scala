@@ -7,7 +7,6 @@ object P1 {
   def havingLowestCabinPrice(prices: Seq[CabinPriceWithRateGroup]): Option[CabinPriceWithRateGroup] =
     prices.find(_.cabinPrice.price == prices.map(_.cabinPrice.price).min)
 
-
   def getBestGroupPrices(
       rates: Seq[Rate],
       prices: Seq[CabinPrice]): Seq[BestGroupPrice] = {
