@@ -2,7 +2,7 @@ package problem1
 
 import scala.util.Try
 
-object P1Main extends App {
+object P1Main {
 
   def havingLowestCabinPrice(prices: Seq[CabinPriceWithRateGroup]): Option[CabinPriceWithRateGroup] =
     prices.find(_.cabinPrice.price == prices.map(_.cabinPrice.price).min)

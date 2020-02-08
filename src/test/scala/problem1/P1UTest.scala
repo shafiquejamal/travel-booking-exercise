@@ -2,7 +2,7 @@ package problem1
 
 import org.scalatest._
 
-class P1Test extends FlatSpec with Matchers {
+class P1UTest extends FlatSpec with Matchers {
 
   "Finding the lowest price in a group of cabin prices" should "return the cabin price object that has the lowest " +
     "price" in {
