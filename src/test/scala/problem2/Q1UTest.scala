@@ -33,7 +33,9 @@ class Q1UTest extends FlatSpecLike with Matchers {
     Q1.makeCombinations(promotions) should contain theSameElementsAs expectedCombinations
   }
 
-  it should "do the same as above, using the method specified in the task" in new TaskFixture {
+  it should "do the same as above, using the method specified in the task" in {
+    import DemoPromotions.allPromotions
+
     val expected = Seq(
       PromotionCombo(Seq("P1", "P2")),
       PromotionCombo(Seq("P1", "P4")),

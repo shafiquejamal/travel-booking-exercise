@@ -6,7 +6,10 @@ import org.scalatest.LoneElement._
 
 class Q2UTest extends FlatSpecLike with Matchers {
 
-  it should "do the same as above, using the method specified in the task" in new TaskFixture {
+  import DemoPromotions.allPromotions
+
+  "Finding all possible promotion combinations that contain a specified promotion code" should "do so, using the " +
+  "method specified in the task" in {
     val expectedForP1 = Seq(
       PromotionCombo(Seq("P1", "P5")),
       PromotionCombo(Seq("P1", "P4")),
