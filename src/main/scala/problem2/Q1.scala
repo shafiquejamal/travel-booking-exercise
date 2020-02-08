@@ -4,6 +4,15 @@ import scala.annotation.tailrec
 
 object Q1 {
 
+  def combinablePromotions(
+      promotionCode: String,
+      allPromotions: Seq[Promotion]): Seq[PromotionCombo] = {
+
+    val promotions = allPromotions.filterNot(promotion => !promotion.notCombinableWith.contains(promotionCode))
+
+    makeCombinations(promotions).map { combinationOfPromotions => PromotionCombo(combinationOfPromotions.map(_.code)) }
+  }
+
   private def isPowerOf2(n: Int) = (n & (n - 1)) == 0
 
   @tailrec
@@ -28,7 +37,8 @@ object Q1 {
     }
   }
 
-  def makeCombinations(promotions: Seq[Promotion]): Seq[Seq[Promotion]] = {
+  def makeCombinations(
+      promotions: Seq[Promotion]): Seq[Seq[Promotion]] = {
 
     val numberOfCombinations = scala.math.pow(2, promotions.length).toInt
     val lengthOfBinaryNumberOfCombinations = (numberOfCombinations - 1).toBinaryString.length
