@@ -17,8 +17,8 @@ trait Fixture {
 
 class Q1UTest extends FlatSpecLike with Matchers {
 
-  "Generating all combinations of promotions for a list of promotions, that include the first promotion," should
-    "yield a list of valid combinations that are exhaustive and respect the 'notCombinableWith' restrictions" in new Fixture {
+  "Generating all combinations of promotions for a list of promotions" should "yield a list of valid combinations " +
+  "that are exhaustive and respect the 'notCombinableWith' restrictions" in new Fixture {
     val expectedCombinations = Seq(
       Seq(pD, pE),
       Seq(pC, pE),
@@ -33,6 +33,34 @@ class Q1UTest extends FlatSpecLike with Matchers {
     )
 
     Q1.makeCombinations(promotions) should contain theSameElementsAs expectedCombinations
+  }
+
+  it should "do the same as above but include only combinations that include the specified promotion " +
+  "code" in new Fixture {
+
+    val expectedCombinationsA = Seq(
+      Seq(pA, pE),
+      Seq(pA, pD),
+      Seq(pA, pD, pE)
+    )
+    Q1.makeCombinations(promotions, Some("A")) should contain theSameElementsAs expectedCombinationsA
+
+    val expectedCombinationsB = Seq(
+      Seq(pB, pD),
+      Seq(pB, pC),
+      Seq(pB, pC, pD),
+    )
+    Q1.makeCombinations(promotions, Some("B")) should contain theSameElementsAs expectedCombinationsB
+
+    val expectedCombinationsE = Seq(
+      Seq(pD, pE),
+      Seq(pC, pE),
+      Seq(pC, pD, pE),
+      Seq(pA, pE),
+      Seq(pA, pD, pE)
+    )
+    Q1.makeCombinations(promotions, Some("E")) should contain theSameElementsAs expectedCombinationsE
+
   }
 
 

@@ -10,7 +10,10 @@ object Q1 {
 
     val promotions = allPromotions.filterNot(promotion => !promotion.notCombinableWith.contains(promotionCode))
 
-    makeCombinations(promotions).map { combinationOfPromotions => PromotionCombo(combinationOfPromotions.map(_.code)) }
+    val maybeRequiredPromotionCode = if (promotionCode.trim.isEmpty) None else Some(promotionCode)
+
+    makeCombinations(promotions, maybeRequiredPromotionCode)
+      .map { combinationOfPromotions => PromotionCombo(combinationOfPromotions.map(_.code)) }
   }
 
   private def isPowerOf2(n: Int) = (n & (n - 1)) == 0
@@ -38,7 +41,8 @@ object Q1 {
   }
 
   def makeCombinations(
-      promotions: Seq[Promotion]): Seq[Seq[Promotion]] = {
+      promotions: Seq[Promotion],
+      maybeRequiredPromotionCode: Option[String] = None): Seq[Seq[Promotion]] = {
 
     val numberOfCombinations = scala.math.pow(2, promotions.length).toInt
     val lengthOfBinaryNumberOfCombinations = (numberOfCombinations - 1).toBinaryString.length
@@ -55,7 +59,15 @@ object Q1 {
           val leftPadding = Seq.fill(lengthOfBinaryNumberOfCombinations - indexAsBinaryString.length)("0").mkString
           val isKeeps: Seq[Boolean] = (leftPadding + indexAsBinaryString).map(_ == '1')
           val combinationsForThisIndex = makeCombination(promotions.zip(isKeeps))
+
+          lazy val isCombinationDoesNotContainRequiredPromotionCode: Boolean =
+            maybeRequiredPromotionCode.fold[Boolean](false){ requiredPromoCode =>
+              combinationsForThisIndex.map(_.code).indexOf(requiredPromoCode) == -1
+            }
+
           if (combinationsForThisIndex.length <= 1) {
+            make(index + 1, accumulatedCombinations)
+          } else if (isCombinationDoesNotContainRequiredPromotionCode) {
             make(index + 1, accumulatedCombinations)
           } else {
             make(index + 1, accumulatedCombinations :+ combinationsForThisIndex)
