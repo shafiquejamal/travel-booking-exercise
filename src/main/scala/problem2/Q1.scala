@@ -4,17 +4,8 @@ import scala.annotation.tailrec
 
 object Q1 {
 
-  def combinablePromotions(
-      promotionCode: String,
-      allPromotions: Seq[Promotion]): Seq[PromotionCombo] = {
-
-    val promotions = allPromotions.filterNot(promotion => !promotion.notCombinableWith.contains(promotionCode))
-
-    val maybeRequiredPromotionCode = if (promotionCode.trim.isEmpty) None else Some(promotionCode)
-
-    makeCombinations(promotions, maybeRequiredPromotionCode)
-      .map { combinationOfPromotions => PromotionCombo(combinationOfPromotions.map(_.code)) }
-  }
+  def allCombinablePromotions(allPromotions: Seq[Promotion]): Seq[PromotionCombo] =
+    Q2.combinablePromotions("", allPromotions)
 
   private def isPowerOf2(n: Int) = (n & (n - 1)) == 0
 

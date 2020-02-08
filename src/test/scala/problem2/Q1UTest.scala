@@ -4,7 +4,6 @@ import org.scalatest.{FlatSpecLike, Matchers}
 import org.scalatest.LoneElement._
 
 trait Fixture {
-
   val pA = Promotion("A", Seq("B", "C"))
   val pB = Promotion("B", Seq("A", "E"))
   val pC = Promotion("C", Seq("A"))
@@ -12,7 +11,6 @@ trait Fixture {
   val pE = Promotion("E", Seq("B"))
 
   val promotions = Seq(pA, pB, pC, pD, pE)
-
 }
 
 class Q1UTest extends FlatSpecLike with Matchers {
@@ -35,9 +33,24 @@ class Q1UTest extends FlatSpecLike with Matchers {
     Q1.makeCombinations(promotions) should contain theSameElementsAs expectedCombinations
   }
 
+  it should "do the same as above, using the method specified in the task" in new TaskFixture {
+    val expected = Seq(
+      PromotionCombo(Seq("P1", "P2")),
+      PromotionCombo(Seq("P1", "P4")),
+      PromotionCombo(Seq("P1", "P5")),
+      PromotionCombo(Seq("P1", "P4", "P5")),
+      PromotionCombo(Seq("P2", "P3")),
+      PromotionCombo(Seq("P3", "P4")),
+      PromotionCombo(Seq("P3", "P5")),
+      PromotionCombo(Seq("P3", "P4", "P5")),
+      PromotionCombo(Seq("P4", "P5"))
+    )
+
+    Q1.allCombinablePromotions(allPromotions) should contain theSameElementsAs expected
+  }
+
   it should "do the same as above but include only combinations that include the specified promotion " +
   "code" in new Fixture {
-
     val expectedCombinationsA = Seq(
       Seq(pA, pE),
       Seq(pA, pD),
@@ -60,9 +73,7 @@ class Q1UTest extends FlatSpecLike with Matchers {
       Seq(pA, pD, pE)
     )
     Q1.makeCombinations(promotions, Some("E")) should contain theSameElementsAs expectedCombinationsE
-
   }
-
 
   "Creating a combination based on an integer index to indicate whether to include a promotion" should "yield the " +
     "combination that reflects the integer specification" in new Fixture  {
