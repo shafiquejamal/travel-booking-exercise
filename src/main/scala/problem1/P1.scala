@@ -2,7 +2,7 @@ package problem1
 
 import scala.util.Try
 
-object P1Main {
+object P1 {
 
   def havingLowestCabinPrice(prices: Seq[CabinPriceWithRateGroup]): Option[CabinPriceWithRateGroup] =
     prices.find(_.cabinPrice.price == prices.map(_.cabinPrice.price).min)
@@ -11,7 +11,6 @@ object P1Main {
   def getBestGroupPrices(
       rates: Seq[Rate],
       prices: Seq[CabinPrice]): Seq[BestGroupPrice] = {
-
 
     val cabinPricesWithRateGroup = prices.flatMap{ price => // ignore prices that have a rate code with no corresponding rate group
       Try {
@@ -25,7 +24,7 @@ object P1Main {
         havingLowestCabinPrice(prices)
           .map(price => BestGroupPrice(cabinCode, price.cabinPrice.rateCode, price.cabinPrice.price, rateGroup))
       }
-    }.toSeq
+    }.toSeq.sortWith(_.price < _.price)
 
 }
 
