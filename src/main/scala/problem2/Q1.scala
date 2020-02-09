@@ -21,7 +21,8 @@ object Q1 {
       val (currentPromotion, currentIsKeep) = remainingPromotionsAndIsKeeps.head
       if (currentIsKeep & !accumulatedNotCombinableCodes.contains(currentPromotion.code)) {
         val nextAccumulatedNotCombinableCodes =
-          (accumulatedNotCombinableCodes ++ currentPromotion.notCombinableWith).distinct
+          accumulatedNotCombinableCodes ++
+            currentPromotion.notCombinableWith.filterNot(code => accumulatedNotCombinableCodes.contains(code))
         makeCombination(
           remainingPromotionsAndIsKeeps.tail,
           accumulatedCombination :+ currentPromotion, nextAccumulatedNotCombinableCodes)
