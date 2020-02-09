@@ -11,3 +11,7 @@ This is a solution for a coding assignment. The solutions are packaged by proble
 
 - To run the tests, start `sbt` and then enter `test` at the `sbt` prompt. 
 - To run the sample data as specified in the task, start `sbt` and then enter `run` at the `sbt` prompt. 
+
+# Notes
+
+- I used recursive functions, instead of mapping and filtering multiple times, in order to minimize the number of iterations through collections.
